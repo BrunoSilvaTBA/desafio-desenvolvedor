@@ -22,7 +22,7 @@ class CreateOrderItemsTable extends Migration
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('purchase_request_id')->references('id')->on('purchase_requests');
+            $table->foreign('purchase_request_id')->references('id')->on('purchase_requests')->onDelete('cascade');
 
         });
     }

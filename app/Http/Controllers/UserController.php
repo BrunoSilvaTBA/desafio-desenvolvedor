@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatedUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -9,13 +10,13 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+       $this->middleware('auth:api')->except(['store']);
     }
 
     //Lista de usuarios
     public function index(User $user)
     {
-        return  datatables($user->all())->toJson();
+        return datatables($user->all())->toJson();
     }
 
     //página de novo usuário
@@ -25,18 +26,18 @@ class UserController extends Controller
     }
 
     //metodo responsável em registrar novo usuário
-    public function store(Request $request)
+    public function store(CreatedUserRequest $request)
     {
-        $input = $request->only(['name','email','password']);
+        $input = $request->only(['name', 'email', 'password']);
         $input['password'] = bcrypt($input['password']);
 
         return User::create($input);
     }
 
-    //metodo responsável em exibir dados de um unico usuário
-    public function show(User $user)
+    //metodo responsável em exibir dados do usuário autenticado
+    public function show()
     {
-        return $user;
+        return $this->user;
     }
 
     public function edit(User $product)
@@ -46,9 +47,9 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $input = $request->only(['name','email','password']);
+        $input = $request->only(['name', 'email', 'password']);
 
-        if( $request->has('password') ) {
+        if ($request->has('password')) {
             $input['password'] = bcrypt($input['password']);
         }
 

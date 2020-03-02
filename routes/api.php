@@ -1,5 +1,6 @@
 <?php
 
+use App\PurchaseRequest;
 use Illuminate\Http\Request;
 
 /*
@@ -34,4 +35,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resources([
     'users' => 'UserController',
     'products' => 'ProductController',
+    'purchaserequest' => 'PurchaseRequestController',
 ]);
+
+Route::delete('order-items/{orderItem}', 'OrderItemController@destroy')->name('orderitem.destroy');
+
+Route::prefix('purchase-requests')->group(function () {
+
+    Route::prefix('my-cart')->group(function(){
+        Route::put('add-item/{product}', 'PurchaseRequestController@store')->name('add.item.cart');
+    });
+
+});
