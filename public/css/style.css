@@ -1,0 +1,30 @@
+#menu{
+    background: #727272;
+    margin-bottom: 50px;
+}
+
+#menu a{
+    color: #fff;
+}
+
+#menu a:hover{
+    color:#fff;
+}
+.error{
+    color: #d33232;
+    font-size: 12px;
+    font-style: italic;
+}
+.subtitulo {
+    margin-bottom: 25px;
+    width: 100%;
+    color: #FFF;
+    font-size: 1.05rem;
+    padding: 5px;
+    text-transform: uppercase;
+    border-left: 15px #727272 solid;
+    padding-left: 10px;
+    background: #c4c4c4;
+}
+
+

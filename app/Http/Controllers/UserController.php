@@ -10,6 +10,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
        $this->middleware('auth:api')->except(['store']);
     }
 
@@ -28,7 +29,7 @@ class UserController extends Controller
     //metodo responsável em registrar novo usuário
     public function store(CreatedUserRequest $request)
     {
-        $input = $request->only(['name', 'email', 'password']);
+        $input = $request->only(['name', 'email', 'password', 'password_confirmation']);
         $input['password'] = bcrypt($input['password']);
 
         return User::create($input);
